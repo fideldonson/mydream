@@ -181,9 +181,8 @@ class _StoryScreenState extends State<StoryScreen> {
           Positioned(
             left: 10,
             top: 20,
-            child: RaisedButton(
-              shape: new CircleBorder(),
-              color: Colors.amber, 
+            child: ElevatedButton(
+              style: ButtonStyle(shape: MaterialStateProperty.all<OutlinedBorder>(CircleBorder()), foregroundColor: MaterialStateProperty.all<Color>(Colors.amber)),
               onPressed: backToMain,
               child: Icon(Icons.arrow_back, color: Colors.white,),
             ),

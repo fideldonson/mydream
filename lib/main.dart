@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'dart:math';
-// import 'dart:io';
 import 'story.dart';
 import 'info.dart';
-import 'MyDreamModel.dart';
+import 'mydream-modelrepo.dart';
 import 'infochild.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:provider/provider.dart';
@@ -288,10 +287,8 @@ class _MainScreenState extends State<MainScreen> {
               alignment: Alignment.topLeft,
               scale: scale,
               // child:Image(image:AssetImage('assets/rodkaelk1.png'),fit: BoxFit.none, alignment: Alignment.topLeft, ),
-              child: FlatButton(
-                splashColor: Colors.transparent,  
-                highlightColor: Colors.transparent,
-                onPressed: () {
+              child: GestureDetector(
+                onTap: () {
                   playDream("mydream.bird");
                 },
                 child:Stack(
@@ -327,10 +324,8 @@ class _MainScreenState extends State<MainScreen> {
             child:Transform.scale(
               alignment: Alignment.topLeft,
               scale: scale,
-              child: FlatButton(
-                splashColor: Colors.transparent,  
-                highlightColor: Colors.transparent,
-                onPressed: () {
+              child: GestureDetector(
+                onTap: () {
                   if(Provider.of<MyDreamModel>(context, listen: false).hareLocked){
                     showParentalGate(context, "mydream.hare");
                   }else{
@@ -338,7 +333,8 @@ class _MainScreenState extends State<MainScreen> {
                   }
                 },
                 child:Stack(
-                  overflow: Overflow.visible,
+                  // overflow: Overflow.visible,
+                  clipBehavior: Clip.none,
                   children: <Widget>[
                     Positioned(
                       top: 30,
@@ -381,10 +377,8 @@ class _MainScreenState extends State<MainScreen> {
             child:Transform.scale(
               alignment: Alignment.topLeft,
               scale: scale,
-              child: FlatButton(
-                splashColor: Colors.transparent,  
-                highlightColor: Colors.transparent,
-                onPressed: () {
+              child: GestureDetector(
+                onTap: () {
                   if(Provider.of<MyDreamModel>(context, listen: false).hedgehogLocked){
                     showParentalGate(context, "mydream.hedgehog");
                   }else{
@@ -392,7 +386,8 @@ class _MainScreenState extends State<MainScreen> {
                   }
                 },
                 child:Stack(
-                  overflow: Overflow.visible,
+                  clipBehavior: Clip.none,
+                  // overflow: Overflow.visible,
                   children: <Widget>[
                     Positioned(
                       top: -10,
@@ -436,9 +431,8 @@ class _MainScreenState extends State<MainScreen> {
           ), */
         ],
       ),
-      floatingActionButton: RaisedButton(
-        shape: new CircleBorder(),
-        color: Colors.amber, 
+      floatingActionButton: ElevatedButton(
+        style: ButtonStyle(shape: MaterialStateProperty.all<OutlinedBorder>(CircleBorder()), foregroundColor: MaterialStateProperty.all<Color>(Colors.amber)),
         onPressed: showInfo,
         child: Text("i", style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),),
       ),
@@ -487,14 +481,14 @@ class _MainScreenState extends State<MainScreen> {
               ),
               ButtonBar(
                 children: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: const Text('KØB REJSEN'),
                     onPressed: () { 
                       Navigator.of(context).pop();
                       Provider.of<MyDreamModel>(context, listen: false).purchaseProduct(storyID); 
                     },
                   ),
-                  FlatButton(
+                  TextButton(
                     child: const Text('AFBRYD'),
                     onPressed: () { Navigator.of(context).pop(); },
                   ),
@@ -560,7 +554,7 @@ class _MainScreenState extends State<MainScreen> {
               ButtonBar(
                 alignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: const Text('FORTSÆT'),
                     onPressed: () { 
                       if(inputController.text != ""){
@@ -571,7 +565,7 @@ class _MainScreenState extends State<MainScreen> {
                       }
                     },
                   ),
-                  FlatButton(
+                  TextButton(
                     child: const Text('AFBRYD'),
                     onPressed: () { Navigator.of(context).pop(); },
                   ),
