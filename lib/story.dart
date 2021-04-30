@@ -65,6 +65,10 @@ class _StoryScreenState extends State<StoryScreen> {
       total = new Duration(minutes: 12, seconds: 26);
       advancedPlayer = await AudioCache().play('beartravel.mp3');
       
+    }else if(storyName == "mydream.godnat"){
+      total = new Duration(minutes: 12, seconds: 26);
+      advancedPlayer = await AudioCache().play('beartravel.mp3');
+      
     }
 
     advancedPlayer.onAudioPositionChanged.listen( audioProgress );
@@ -126,6 +130,8 @@ class _StoryScreenState extends State<StoryScreen> {
     }else if(storyName == "hare"){
       progress = "11:22";
     }else if(storyName == "hedgehog"){
+      progress = "12:26";
+    }else if(storyName == "godnat"){
       progress = "12:26";
     }
 

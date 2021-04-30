@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 
 class MyDreamModel with ChangeNotifier {
   //-----iap -----//
-  List<String> storyIDs = ["mydream.hare", "mydream.hedgehog"];
+  List<String> storyIDs = ["mydream.hare", "mydream.hedgehog", "mydream.godnat"];
   List<String> purchasedStories = [];
 
   /// Is the API available on the device
@@ -27,6 +27,8 @@ class MyDreamModel with ChangeNotifier {
 
   bool hareLocked = true;
   bool hedgehogLocked = true;
+  bool godnatLocked = true;
+
   bool iapInitialized = false;
 
   Database userdb;
@@ -62,6 +64,8 @@ class MyDreamModel with ChangeNotifier {
             hareLocked = false;
           } else if (purchaseDetails.productID == "mydream.hedgehog") {
             hedgehogLocked = false;
+          } else if (purchaseDetails.productID == "mydream.godnat") {
+            godnatLocked = false;
           }
 
           updateDBPurchases();
@@ -126,6 +130,8 @@ class MyDreamModel with ChangeNotifier {
           hareLocked = false;
         } else if (purchaseObject['hedgehog'] == false) {
           hedgehogLocked = false;
+        } else if (purchaseObject['godnat'] == false) {
+          godnatLocked = false;
         }
       }
     }
@@ -137,6 +143,7 @@ class MyDreamModel with ChangeNotifier {
     List userPurchases = [];
     userPurchases.add({"hare": hareLocked});
     userPurchases.add({"hedgehog": hedgehogLocked});
+    userPurchases.add({"godnat": godnatLocked});
 
     var store = StoreRef.main();
 
@@ -237,6 +244,8 @@ class MyDreamModel with ChangeNotifier {
         } else if (purchase.productID == "mydream.hedgehog") {
           hedgehogLocked = false;
           // testConsumeDetails = purchase;
+        } else if (purchase.productID == "mydream.godnat") {
+          godnatLocked = false;
         }
       }
 
