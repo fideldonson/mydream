@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:math';
+
+import 'illustrations/info-bear.dart';
 
 class InfoChildScreen extends StatefulWidget {
   InfoChildScreen({Key key}) : super(key: key);
@@ -10,41 +10,8 @@ class InfoChildScreen extends StatefulWidget {
 }
 
 class _InfoChildScreenState extends State<InfoChildScreen> {
-  Timer bearTimer;
-  int bearEyeFrame;
-
   void backToMain() {
     Navigator.of(context).pop();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    nextBearTimer();
-  }
-
-  void nextBearTimer() {
-    if (bearEyeFrame == 0) {
-      bearEyeFrame = 1;
-
-      bearTimer = new Timer(Duration(milliseconds: 250), nextBearTimer);
-    } else {
-      bearEyeFrame = 0;
-
-      int seconds = 1 + new Random().nextInt(7);
-      bearTimer = new Timer(Duration(seconds: seconds), nextBearTimer);
-    }
-    if (this.mounted) {
-      setState(() {});
-    }
-  }
-
-  Widget getBearEyes() {
-    if (bearEyeFrame == 0) {
-      return null;
-    } else {
-      return Image(image: AssetImage('assets/infooeje.png'));
-    }
   }
 
   @override
@@ -87,20 +54,7 @@ class _InfoChildScreenState extends State<InfoChildScreen> {
             child: Transform.scale(
               alignment: Alignment.topLeft,
               scale: scale,
-              child: Image(
-                image: AssetImage('assets/infobjoern.png'),
-                fit: BoxFit.none,
-                alignment: Alignment.topLeft,
-              ),
-            ),
-          ),
-          Positioned(
-            top: topOffset + (780 * scale),
-            left: (200 * scale),
-            child: Transform.scale(
-              alignment: Alignment.topLeft,
-              scale: scale,
-              child: getBearEyes(),
+              child: InfoBear(),
             ),
           ),
           Positioned(
@@ -108,8 +62,9 @@ class _InfoChildScreenState extends State<InfoChildScreen> {
             top: 20,
             child: ElevatedButton(
               style: ButtonStyle(
-                  shape: MaterialStateProperty.all<OutlinedBorder>(CircleBorder()),
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.amber)),
+                shape: MaterialStateProperty.all<OutlinedBorder>(CircleBorder()),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.amber),
+              ),
               onPressed: backToMain,
               child: Icon(
                 Icons.arrow_back,

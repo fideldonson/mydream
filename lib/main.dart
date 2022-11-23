@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 import 'dart:math';
+import 'illustrations/rodkaelk.dart';
 import 'story.dart';
 import 'info.dart';
 import 'mydream-modelrepo.dart';
@@ -25,7 +26,7 @@ class MyDream extends StatelessWidget {
       DeviceOrientation.landscapeLeft,
       DeviceOrientation.landscapeRight,
     ]);
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -59,11 +60,6 @@ class _MainScreenState extends State<MainScreen> {
   int bearEyeFrame = 0;
   Timer bearEyeTimer;
 
-  int roedkaelkFrame = 0;
-  Timer roedkaelkTimer;
-  Widget roedkaelk = Image(
-    image: AssetImage('assets/rodkaelk1.png'),
-  );
   int hedgehogFrame = 0;
   Timer hedgehogTimer;
   Widget hedgehog = Image(
@@ -107,7 +103,6 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     nextBearTimer();
     nextBearEyeTimer();
-    nextRoedkaelkTimer();
     nextHedgehogTimer();
     nextGodnatTimer();
     nextHareTimer();
@@ -164,25 +159,7 @@ class _MainScreenState extends State<MainScreen> {
     }
   }
 
-  nextRoedkaelkTimer() {
-    int seconds = 3 + new Random().nextInt(3);
-    roedkaelkTimer = new Timer(Duration(seconds: seconds), nextRoedkaelkTimer);
-
-    if (roedkaelkFrame == 0) {
-      roedkaelk = Image(image: AssetImage('assets/rodkaelk1.png'), key: ValueKey<int>(roedkaelkFrame));
-      roedkaelkFrame = 1;
-    } else if (roedkaelkFrame == 1) {
-      roedkaelk = Image(image: AssetImage('assets/rodkaelk2.png'), key: ValueKey<int>(roedkaelkFrame));
-      roedkaelkFrame = 2;
-    } else if (roedkaelkFrame == 2) {
-      roedkaelk = Image(image: AssetImage('assets/rodkaelk3.png'), key: ValueKey<int>(roedkaelkFrame));
-      roedkaelkFrame = 3;
-    } else if (roedkaelkFrame == 3) {
-      roedkaelk = Image(image: AssetImage('assets/rodkaelk2.png'), key: ValueKey<int>(roedkaelkFrame));
-      roedkaelkFrame = 0;
-    }
-    setState(() {});
-  }
+  
 
   nextHedgehogTimer() {
     int seconds;
@@ -315,12 +292,7 @@ class _MainScreenState extends State<MainScreen> {
                           )),
                     ),
                     Container(
-                      child: AnimatedSwitcher(
-                        switchInCurve: Interval(0.0, 0.5, curve: Curves.linear),
-                        switchOutCurve: Interval(0.5, 1.0, curve: Curves.linear),
-                        duration: const Duration(milliseconds: 750),
-                        child: roedkaelk,
-                      ),
+                      child: Rodkaelk(),
                     ),
                   ],
                 ),
@@ -497,7 +469,6 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
           ),
-          
         ],
       ),
       floatingActionButton: ElevatedButton(

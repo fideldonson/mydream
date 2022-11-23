@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
-import 'dart:math';
 
+import 'illustrations/info-bear.dart';
 import 'mydream-modelrepo.dart';
 
 class InfoScreen extends StatefulWidget {
@@ -13,9 +13,6 @@ class InfoScreen extends StatefulWidget {
 }
 
 class _InfoScreenState extends State<InfoScreen> {
-  Timer bearTimer;
-  int bearEyeFrame;
-
   void backToMain() {
     Navigator.of(context).pop();
   }
@@ -27,36 +24,6 @@ class _InfoScreenState extends State<InfoScreen> {
       backToMain();
     } else {
       print('handle error');
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    nextBearTimer();
-  }
-
-  void nextBearTimer() {
-    if (bearEyeFrame == 0) {
-      bearEyeFrame = 1;
-
-      bearTimer = new Timer(Duration(milliseconds: 250), nextBearTimer);
-    } else {
-      bearEyeFrame = 0;
-
-      int seconds = 1 + new Random().nextInt(7);
-      bearTimer = new Timer(Duration(seconds: seconds), nextBearTimer);
-    }
-    if (this.mounted) {
-      setState(() {});
-    }
-  }
-
-  Widget getBearEyes() {
-    if (bearEyeFrame == 0) {
-      return null;
-    } else {
-      return Image(image: AssetImage('assets/infooeje.png'));
     }
   }
 
@@ -110,20 +77,7 @@ class _InfoScreenState extends State<InfoScreen> {
             child: Transform.scale(
               alignment: Alignment.topLeft,
               scale: scale,
-              child: Image(
-                image: AssetImage('assets/infobjoern.png'),
-                fit: BoxFit.none,
-                alignment: Alignment.topLeft,
-              ),
-            ),
-          ),
-          Positioned(
-            top: topOffset + (780 * scale),
-            left: (200 * scale),
-            child: Transform.scale(
-              alignment: Alignment.topLeft,
-              scale: scale,
-              child: getBearEyes(),
+              child: InfoBear(),
             ),
           ),
           Positioned(
